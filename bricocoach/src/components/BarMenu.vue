@@ -1,6 +1,9 @@
 <template>
     <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">		
+        <div class="navbar-brand">
+            <span class="navbar-item">
+                <GoogleSignIn/>
+            </span>
             <a @click="this.onBurgerClick" ref="burgerMenu" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -14,7 +17,6 @@
                     {{t.title}}
                 </router-link>
             </div>
-            <GoogleSignIn/>
         </div>
     </nav>
 </template>
@@ -29,7 +31,7 @@ export default
     components: {
         GoogleSignIn
     },
-    
+
     data() {
         return {
             burgerToggle: false

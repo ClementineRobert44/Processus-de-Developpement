@@ -1,9 +1,16 @@
 <template>
-    a
+    <div/>
 </template>
 
 <script>
 export default {
+    data () {
+
+    },
+
+    props: {
+
+    }
 
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
 	<div>
         <meta name="google-signin-scope" content="profile email">
-        <meta name="google-signin-client_id" content="231464467165-1lfp4h8eq9ukej2pm157tdascipkcnsv.apps.googleusercontent.com">
+        <meta name="google-signin-client_id" content="224038039367-oms0sqijnsejlknamgtsg0jllf1k0qr6.apps.googleusercontent.com">
         <div class="g-signin2" data-theme="dark" data-onsuccess="this.onSignIn"></div>
     </div>
 </template>
