@@ -1,6 +1,25 @@
 <template>
-<router-view/>
+    <div class="container">
+        <BarMenu :titles="
+        [
+            {title: this.$t('titles.home'), href:'/'},
+            {title: this.$t('titles.exercices'), href:'/exercices'},
+            {title: this.$t('titles.achievements'), href:'/achievements'},
+            {title: this.$t('titles.contact'), href:'/contact'},
+        ]"/>
+        <router-view/>
+    </div>
 </template>
+
+<script>
+import BarMenu from './components/BarMenu.vue'
+export default {
+    name: "App",
+    components: {
+        BarMenu
+    }
+}
+</script>
 
 <style>
 #app {

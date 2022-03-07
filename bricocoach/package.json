@@ -11,6 +11,7 @@
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
     "vue-google-signin-button-directive": "^1.0.3",
+    "vue-i18n": "^9.1.9",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
