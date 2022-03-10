@@ -11,7 +11,29 @@ export default {
             /** Retourne les exercices d'un stagiaire */
             getExercicesStagiaire: (idStagiaire) => {
                 console.log(idStagiaire);
-                return null;
+                // return null;
+                return [
+                    {
+                        id: "1",
+                        title: "Planter un clou",
+                        description: "Comment planter un clou dans une planche en bois ?"
+                    },
+                    {
+                        id: "2",
+                        title: "Couper une planche",
+                        description: "Comment couper une planche en bois, avec une scie sauteuse ?"
+                    },
+                    {
+                        id: "3",
+                        title: "Fabriquer une étagère",
+                        description: "A partir de clous et de planches coupées, comment faire une étagère ?"
+                    },
+                    {
+                        id: "4",
+                        title: "Construire un vaisseau spatial",
+                        description: "A partir de clous et d'une étagère en bois, comment fabriquer un vaisseau spatial ?"
+                    },
+                ];
             }
         };
     }

@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Index from '../routes/Index.vue'
-import ExerciceList from '../routes/ExerciceListPage.vue'
+import WIP from '../components/WIP.vue'
+import ModuleListPage from '../routes/ModuleListPage.vue'
+import ModulePage from '../routes/ModulePage.vue'
 
 const routes = [
     {
@@ -9,24 +11,29 @@ const routes = [
         component: Index
     },
     {
-        path: '/exercices',
-        name: 'Exercices',
-        component: ExerciceList
+        path: '/modules',
+        name: 'Modules',
+        component: ModuleListPage
     },
     {
-        path: '/',
-        name: 'Index',
-        component: Index
+        path: '/modules/:id',
+        name: 'Module',
+        component: ModulePage
     },
     {
-        path: '/',
-        name: 'Index',
-        component: Index
+        path: '/modules/:id/exercice/:idE',
+        name: 'Exercice',
+        component: WIP
     },
     {
-        path: '/',
-        name: 'Index',
-        component: Index
+        path: '/achievements',
+        name: 'Achievements',
+        component: WIP
+    },
+    {
+        path: '/contact',
+        name: 'Contact',
+        component: WIP
     },
 ]
 

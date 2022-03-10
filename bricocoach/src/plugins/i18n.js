@@ -18,6 +18,7 @@ const messages = {
         titles: {
             home: 'Home',
             exercices: 'My Exercices',
+            modules: 'My Modules',
             achievements: 'Achievements',
             contact: 'Contact',
         },
@@ -26,6 +27,7 @@ const messages = {
         titles: {
             home: 'Accueil',
             exercices: 'Mes Exercices',
+            modules: 'Mes Modules',
             achievements: 'Trophées',
             contact: 'Contact',
         },
