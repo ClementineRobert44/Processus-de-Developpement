@@ -67,7 +67,18 @@ export default
 <style>
 .navbar
 {
-		box-shadow: 10px -25px 50px;
-		margin-bottom: 50px;
+    box-shadow: 10px -5px 50px black;
+    margin-bottom: 50px;
+    background-color: #333;
+}
+
+.navbar-item {
+    background-color: #333;
+    color:white;
+}
+
+.navbar-item:hover {
+    background-color: #666 !important;
+    color:white !important;
 }
 </style>

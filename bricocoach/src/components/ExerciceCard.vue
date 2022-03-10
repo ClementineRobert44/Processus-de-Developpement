@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'Exercice', params:{idE: ' '} }">
+    <router-link :to="{ name: 'Exercice', params:{idE: exercice.id} }">
         <div class="card">
             <div class="card-content">
                 <div class="media">
@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div class="content">
-                    {{ this.description }}
+                    {{ this.exercice.description }}
                 </div>
             </div>
         </div>
