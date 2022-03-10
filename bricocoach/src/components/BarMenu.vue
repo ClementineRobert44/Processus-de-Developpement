@@ -1,11 +1,27 @@
 <template>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div ref="navbarMenu" class="navbar-menu">
             <div class="navbar-start">
                 <router-link class="navbar-item" v-for="t in titles" :key="t.title"
                             :to="t.href">
                     {{t.title}}
                 </router-link>
+                
+                <!--I18n-->
+                <div class="navbar-item has-dropdown is-hoverable is-dark">
+                    <a class="navbar-link">
+                        {{ $t('titles.language') }}
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="#" @click="this.setLocale('fr', $i18n)">
+                        Français
+                        </a>
+                        <a class="navbar-item" href="#"  @click="this.setLocale('en', $i18n)">
+                        English
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="navbar-brand">
@@ -59,7 +75,13 @@ export default
         closeBurger() {
             this.$refs.burgerMenu.classList.remove("is-active");
             this.$refs.navbarMenu.classList.remove("is-active");
-        }
+        },
+
+
+        setLocale(locale, i18n) {
+            i18n.locale = locale;
+            localStorage.setItem('locale', locale);
+        },
     }
 }
 </script>
@@ -70,15 +92,5 @@ export default
     box-shadow: 10px -5px 50px black;
     margin-bottom: 50px;
     background-color: #333;
-}
-
-.navbar-item {
-    background-color: #333;
-    color:white;
-}
-
-.navbar-item:hover {
-    background-color: #666 !important;
-    color:white !important;
 }
 </style>

@@ -1,5 +1,13 @@
+function init(options) {
+    console.log("Installing ExerciceRepository with options : ");
+    console.log(options);
+    console.log("----------");
+}
+
+
 export default {
-    install: (app) => {
+    install: (app, options) => {
+        init(options);
         app.config.globalProperties.$exerciceRepository = {
 
             /** Retourne un exercice par son id */
