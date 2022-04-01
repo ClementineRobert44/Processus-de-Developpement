@@ -1,6 +1,6 @@
 <template>
 	<div>
-        <div class="button is-primary" v-on:click="handleClickSignIn">Google</div>
+        <div class="button is-primary" v-on:click="handleClickSignIn"></div>
     </div>
 </template>
 
