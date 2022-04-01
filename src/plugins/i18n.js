@@ -13,6 +13,11 @@ const messages = {
             contact: '',
             language: '',
         },
+        google: {
+            signin: '',
+            signout: ''
+        }
+
     },
     en: {
         titles: {
@@ -23,6 +28,10 @@ const messages = {
             contact: 'Contact',
             language: 'Language',
         },
+        google: {
+            signin: 'Sign in',
+            signout: 'Sign out'
+        },
     },
     fr: {
         titles: {
@@ -32,6 +41,10 @@ const messages = {
             achievements: 'Trophées',
             contact: 'Contact',
             language: 'Langue',
+        },
+        google: {
+            signin: 'Connexion',
+            signout: 'Déconnexion'
         },
     },
 }
