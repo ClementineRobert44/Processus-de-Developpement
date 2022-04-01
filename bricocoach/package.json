@@ -12,7 +12,8 @@
     "vue": "^3.0.0",
     "vue-google-signin-button-directive": "^1.0.3",
     "vue-i18n": "^9.1.9",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vue3-google-oauth2": "^1.0.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
