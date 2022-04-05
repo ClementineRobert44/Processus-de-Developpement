@@ -1,5 +1,13 @@
 <template>
-  <router-link :to="{ name: 'Exercice', params: { idE: exercice.id } }">
+  <router-link
+    :to="{
+      name: 'Exercice',
+      params: {
+        idE: exercice.id,
+        exercice: JSON.stringify(exercice),
+      },
+    }"
+  >
     <div class="card">
       <div class="card-content">
         <div class="media">

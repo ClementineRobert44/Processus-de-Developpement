@@ -3,6 +3,7 @@ import Index from "../routes/Index.vue";
 import WIP from "../components/WIP.vue";
 import ModuleListPage from "../routes/ModuleListPage.vue";
 import ModulePage from "../routes/ModulePage.vue";
+import ExercicePage from "../routes/ExercicePage.vue";
 
 const routes = [
   {
@@ -24,7 +25,8 @@ const routes = [
   {
     path: "/modules/:id/exercice/:idE",
     name: "Exercice",
-    component: WIP,
+    props: true,
+    component: ExercicePage,
   },
   {
     path: "/achievements",
