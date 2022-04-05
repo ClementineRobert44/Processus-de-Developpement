@@ -1,7 +1,9 @@
 <template>
   <div class="card">
     <header class="card-header">
-      <p class="card-header-title">{{ detailsExercice.title }}</p>
+      <p class="card-header-title">
+        {{ parseInt(detailsExercice.id) + 1 }}. {{ detailsExercice.title }}
+      </p>
       <button class="card-header-icon" aria-label="more options">
         <span class="icon">
           <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -20,8 +22,16 @@
 
       <h2>Outils à utiliser</h2>
 
-      <div v-for="tool in detailsExercice.necessaryTools" :key="tool.name">
-        {{ tool.name }}
+      <div class="list">
+        <ul>
+          <div
+            v-for="tool in detailsExercice.necessaryTools"
+            :key="tool.name"
+            class="list-item"
+          >
+            <li>{{ tool.name }}</li>
+          </div>
+        </ul>
       </div>
     </div>
     <footer class="card-footer">
