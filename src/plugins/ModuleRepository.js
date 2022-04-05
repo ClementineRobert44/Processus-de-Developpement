@@ -29,24 +29,28 @@ export default {
                 title: "Planter un clou",
                 description:
                   "Comment planter un clou dans une planche en bois ?",
+                advancement: "notStart",
               },
               {
                 id: "1",
                 title: "Couper une planche",
                 description:
                   "Comment couper une planche en bois, avec une scie sauteuse ?",
+                advancement: "finish",
               },
               {
                 id: "2",
                 title: "Fabriquer une étagère",
                 description:
                   "A partir de clous et de planches coupées, comment faire une étagère ?",
+                advancement: "inProgress",
               },
               {
                 id: "3",
                 title: "Construire un vaisseau spatial",
                 description:
                   "A partir de clous et d'une étagère en bois, comment fabriquer un vaisseau spatial ?",
+                advancement: "notStart",
               },
             ],
           },
