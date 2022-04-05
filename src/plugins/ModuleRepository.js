@@ -27,9 +27,17 @@ export default {
               {
                 id: "0",
                 title: "Planter un clou",
-                description:
-                  "Comment planter un clou dans une planche en bois ?",
+                description: "Planter le clou c'est important",
                 advancement: "notStart",
+                duree: "1h",
+                necessaryTools: [
+                  {
+                    name: "Clou de 5cm",
+                  },
+                  {
+                    name: "Marteau",
+                  },
+                ],
               },
               {
                 id: "1",

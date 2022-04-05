@@ -15,6 +15,14 @@
         <br />
         <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
       </div>
+
+      <div class="content">Durée : {{ detailsExercice.duree }}</div>
+
+      <h2>Outils à utiliser</h2>
+
+      <div v-for="tool in detailsExercice.necessaryTools" :key="tool.name">
+        {{ tool.name }}
+      </div>
     </div>
     <footer class="card-footer">
       <a v-on:click="start()" class="card-footer-item">Commencer</a>
@@ -38,6 +46,7 @@ export default {
   },
   created() {
     this.detailsExercice = JSON.parse(this.exercice);
+    console.log(this.detailsExercice.necessaryTools);
   },
 
   methods: {
