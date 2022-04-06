@@ -37,9 +37,17 @@
     <footer class="card-footer">
       <a v-on:click="start()" class="card-footer-item">Commencer</a>
       <a v-on:click="end()" class="card-footer-item">Terminer</a>
-      <a v-on:click="contact()" class="card-footer-item"
-        >Envoyer un message au coach</a
-      >
+      <router-link
+        class="card-footer-item"
+        :to="{
+          name: 'Commentaire',
+          params: {
+            idExercice: exercice.id,
+            exercice: exercice,
+          },
+        }"
+        >Commenter
+      </router-link>
     </footer>
   </div>
 </template>
