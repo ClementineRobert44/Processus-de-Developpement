@@ -9,18 +9,18 @@ export default {
         init(options);
         app.config.globalProperties.$sheetsApi = {
             getSpreadsheet(sheetId) {
-                console.log("token : " + sessionStorage.getItem("access_token"));
-                var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?includeGridData=true`;
-                var headers = new Headers();
-                headers.append("Authorization", `Bearer ${sessionStorage.getItem("access_token")}`);
-                headers.append("key", sessionStorage.getItem(options));
-                headers.append("Access-Control-Allow-Origin", "*");
+                var accessToken =  sessionStorage.getItem("access_token");
+                console.log("token : " + accessToken);
+                if(!accessToken) return null;
+                var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?includeGridData=true&key=AIzaSyBER13Jf30swj6FSNcvPh79PGJJP4v0xvg`;
 
                 fetch(url, {
                     method: "GET",
-                    headers: headers,
+                    headers: {                        
+                        "Authorization" : `Bearer ${sessionStorage.getItem("access_token")}`,
+                    },                
                     mode: "cors"
-                    }).then((e) => console.log(e));
+                    }).then((e) => e.blob()).then(e => e.text()).then(e => console.log(JSON.parse(e)));
             },
         };
         console.log("SheetsAPI installed");
