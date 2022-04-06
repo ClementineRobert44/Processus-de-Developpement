@@ -4,7 +4,7 @@
       name: 'Exercice',
       params: {
         idE: exercice.id,
-        exercice: JSON.stringify(exercice),
+        exercice: exercice,
       },
     }"
   >
@@ -13,10 +13,8 @@
         <div class="media">
           <div class="media-content">
             <p class="title is-4">
-              <span class="numberExercice"
-                >{{ parseInt(this.exercice.id) + 1 }}.</span
-              >
-              {{ this.exercice.title }}
+              <span class="numberExercice">{{ this.exercice.id }}.</span>
+              {{ this.exercice.titre }}
             </p>
           </div>
         </div>
@@ -26,9 +24,9 @@
       </div>
       <div
         :class="{
-          'avancement isNotStart': this.exercice.advancement == 0,
-          'avancement isInProgress': this.exercice.advancement == 1,
-          'avancement isFinish': this.exercice.advancement == 2,
+          'avancement isNotStart': this.exercice.etat == 0,
+          'avancement isInProgress': this.exercice.etat == 1,
+          'avancement isFinish': this.exercice.etat == 2,
         }"
       >
         t
@@ -44,6 +42,10 @@ export default {
   props: {
     exercice: Object,
   },
+
+  created() {
+      console.log(this.exercice);
+  }
 };
 </script>
 

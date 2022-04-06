@@ -8,134 +8,56 @@ export default {
   install: (app, options) => {
       init(options);
     app.config.globalProperties.$moduleRepository = {
-      /** Retourne un exercice par son id */
-      getModule: (idModule) => {
-        console.log(idModule);
-        return null;
-      },
+      /** Retourne un module par son id */
+      async getModule(idModule) {
+        var moduleSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Modules");
+                
+        var fieldsRow = moduleSheet.data[0].rowData[0];
+        var moduleRow = moduleSheet.data[0].rowData.find(e => e.values[0].formattedValue == idModule);
 
-      /** Retourne les exercices d'un stagiaire */
-      getModuleById: (id) => {
-        console.log(id);
-        // return null;
-        return app.config.globalProperties.$moduleRepository.getModulesStagiaire(
-          0
-        )[id];
-      },
+        if(moduleRow) {
+            return this.createFromRow(moduleRow, fieldsRow);
+        }
+        else {
+            console.log(`Module with id ${idModule} not found.`);
+            return null;
+        }
+},
 
-      getModulesStagiaire: () => {
-        var modules = [
-          {
-            id: "0",
-            title: "Comment construire un vaisseau spatial ?",
-            advancement: 0,
-            exercices: [
-              {
-                id: "0",
-                title: "Planter un clou",
-                description: "Planter le clou c'est important",
-                advancement: 0,
-                duree: "1h",
-                dateDebutPrev: "24/04/2022",
-                dateFinPrev: "26/05/2022",
-                necessaryTools: [
-                  {
-                    name: "Clou de 5cm",
-                  },
-                  {
-                    name: "Marteau",
-                  },
-                ],
-              },
-              {
-                id: "1",
-                title: "Couper une planche",
-                description:
-                  "Comment couper une planche en bois, avec une scie sauteuse ?",
-                advancement: 2,
-              },
-              {
-                id: "2",
-                title: "Fabriquer une étagère",
-                description:
-                  "A partir de clous et de planches coupées, comment faire une étagère ?",
-                advancement: 1,
-              },
-              {
-                id: "3",
-                title: "Construire un vaisseau spatial",
-                description:
-                  "A partir de clous et d'une étagère en bois, comment fabriquer un vaisseau spatial ?",
-                advancement: 0,
-              },
-            ],
-          },
+      async getModules() {
+        var moduleSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Modules");
+                        
+        var fieldsRow = moduleSheet.data[0].rowData[0];
+        var ret = [];
+        moduleSheet.data[0].rowData.slice(1, moduleSheet.data[0].rowData.length).map((e) => ret.push(this.createFromRow(e, fieldsRow)));
+        return ret;
+    },
 
-          {
-            id: "1",
-            title: "Comment construire une étagère ?",
-            advancement: 1,
-            exercices: [
-              {
-                id: "0",
-                title: "Planter un clou",
-                description:
-                  "Comment planter un clou dans une planche en bois ?",
-              },
-              {
-                id: "1",
-                title: "Couper une planche",
-                description:
-                  "Comment couper une planche en bois, avec une scie sauteuse ?",
-              },
-              {
-                id: "2",
-                title: "Fabriquer une étagère",
-                description:
-                  "A partir de clous et de planches coupées, comment faire une étagère ?",
-              },
-              {
-                id: "3",
-                title: "Construire un vaisseau spatial",
-                description:
-                  "A partir de clous et d'une étagère en bois, comment fabriquer un vaisseau spatial ?",
-              },
-            ],
-          },
-          {
-            id: "2",
-            title: "Comment construire une table ?",
-            advancement: 2,
-            exercices: [
-              {
-                id: "0",
-                title: "Planter un clou",
-                description:
-                  "Comment planter un clou dans une planche en bois ?",
-              },
-              {
-                id: "1",
-                title: "Couper une planche",
-                description:
-                  "Comment couper une planche en bois, avec une scie sauteuse ?",
-              },
-              {
-                id: "2",
-                title: "Fabriquer une étagère",
-                description:
-                  "A partir de clous et de planches coupées, comment faire une étagère ?",
-              },
-              {
-                id: "3",
-                title: "Construire un vaisseau spatial",
-                description:
-                  "A partir de clous et d'une étagère en bois, comment fabriquer un vaisseau spatial ?",
-              },
-            ],
-          },
-        ];
-        return modules;
-      },
+    /** Retourne un objet JSON à partir d'une row de sheet Google
+     * @param row row de la feuille de calcul à passer pour créer un objet
+     * @param fields champs de la feuille (la première ligne de la feuille)
+     */
+            createFromRow(row, fields) {
+            var ret = {};
+            fields.values.map((e, i) => {
+                if(row.values[i])
+                    ret[e.formattedValue] = row.values[i].formattedValue;
+
+                    // Calculer l'avancement
+                    app.config.globalProperties.$exerciceRepository.getExercicesModule(ret.id)
+                    .then(e => {
+                        var sum = 0;
+                        e.map(ex => sum += parseInt(ex.etat));
+                        if(sum == 0)
+                            ret.avancement = 0;
+                        else if(sum == e.length * 2)
+                            ret.avancement = 2;
+                        else ret.avancement = 1;
+                    });
+            });
+
+            return ret; 
+        }    
     };
   },
 };

@@ -8,8 +8,8 @@ export default {
 	install: (app, options) => {
 		app.config.globalProperties.$exerciceRepository = {
 			/** Retourne un exercice par son id */
-			getExercice(idExercice) {	
-                var exerciceSheet = app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
+			async getExercice(idExercice) {	
+                var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
                 
                 var fieldsRow = exerciceSheet.data[0].rowData[0];
                 var exerciceRow = exerciceSheet.data[0].rowData.find(e => e.values[0].formattedValue == idExercice);
@@ -24,12 +24,26 @@ export default {
 			},
 
 			/** Retourne les exercices d'un stagiaire */
-            getExercices() {
-                var exerciceSheet = app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
+            async getExercices() {
+                var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
                         
                 var fieldsRow = exerciceSheet.data[0].rowData[0];
                 var ret = [];
                 exerciceSheet.data[0].rowData.map((e) => ret.push(this.createFromRow(e, fieldsRow)));
+                return ret;
+            },
+
+
+            /* Retourne les exercices d'un module */
+            async getExercicesModule(idModule) {
+                var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
+                        
+                var fieldsRow = exerciceSheet.data[0].rowData[0];
+                var ret = [];
+                exerciceSheet.data[0].rowData.filter(e => e.values[1].formattedValue == idModule).map((e) => ret.push(this.createFromRow(e, fieldsRow)));
+                console.log("ret :");
+                console.log(ret);
+                return ret;
             },
 
 
@@ -40,6 +54,7 @@ export default {
             createFromRow(row, fields) {
                 var ret = {};
                 fields.values.map((e, i) => {
+                    if(row.values[i])
                     ret[e.formattedValue] = row.values[i].formattedValue;
                 });
                 return ret; 
