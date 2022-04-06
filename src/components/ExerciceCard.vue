@@ -26,9 +26,9 @@
       </div>
       <div
         :class="{
-          'avancement isNotStart': this.exercice.advancement == 'notStart',
-          'avancement isInProgress': this.exercice.advancement == 'inProgress',
-          'avancement isFinish': this.exercice.advancement == 'finish',
+          'avancement isNotStart': this.exercice.advancement == 0,
+          'avancement isInProgress': this.exercice.advancement == 1,
+          'avancement isFinish': this.exercice.advancement == 2,
         }"
       >
         t

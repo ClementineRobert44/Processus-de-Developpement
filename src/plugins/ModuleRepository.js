@@ -28,14 +28,16 @@ export default {
           {
             id: "0",
             title: "Comment construire un vaisseau spatial ?",
-            advancement: "inProgress",
+            advancement: 0,
             exercices: [
               {
                 id: "0",
                 title: "Planter un clou",
                 description: "Planter le clou c'est important",
-                advancement: "notStart",
+                advancement: 0,
                 duree: "1h",
+                dateDebutPrev: "24/04/2022",
+                dateFinPrev: "26/05/2022",
                 necessaryTools: [
                   {
                     name: "Clou de 5cm",
@@ -50,21 +52,21 @@ export default {
                 title: "Couper une planche",
                 description:
                   "Comment couper une planche en bois, avec une scie sauteuse ?",
-                advancement: "finish",
+                advancement: 2,
               },
               {
                 id: "2",
                 title: "Fabriquer une étagère",
                 description:
                   "A partir de clous et de planches coupées, comment faire une étagère ?",
-                advancement: "inProgress",
+                advancement: 1,
               },
               {
                 id: "3",
                 title: "Construire un vaisseau spatial",
                 description:
                   "A partir de clous et d'une étagère en bois, comment fabriquer un vaisseau spatial ?",
-                advancement: "notStart",
+                advancement: 0,
               },
             ],
           },
@@ -72,7 +74,7 @@ export default {
           {
             id: "1",
             title: "Comment construire une étagère ?",
-            advancement: "notStart",
+            advancement: 1,
             exercices: [
               {
                 id: "0",
@@ -103,7 +105,7 @@ export default {
           {
             id: "2",
             title: "Comment construire une table ?",
-            advancement: "finish",
+            advancement: 2,
             exercices: [
               {
                 id: "0",
