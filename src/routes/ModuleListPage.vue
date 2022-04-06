@@ -17,9 +17,9 @@
         </router-link>
         <div
           :class="{
-            'column notStart': m.advancement == 'notStart',
-            'column inProgress': m.advancement == 'inProgress',
-            'column finish': m.advancement == 'finish',
+            'column notStart': m.advancement == 0,
+            'column inProgress': m.advancement == 1,
+            'column finish': m.advancement == 2,
           }"
         ></div>
       </div>

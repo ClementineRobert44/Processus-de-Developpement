@@ -15,7 +15,10 @@
         {{ detailsExercice.description }}
 
         <br />
-        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        <p>
+          {{ detailsExercice.dateDebutPrev }} -
+          {{ detailsExercice.dateFinPrev }}
+        </p>
       </div>
 
       <div class="content">Durée : {{ detailsExercice.duree }}</div>
@@ -37,14 +40,23 @@
     <footer class="card-footer">
       <a v-on:click="start()" class="card-footer-item">Commencer</a>
       <a v-on:click="end()" class="card-footer-item">Terminer</a>
-      <a v-on:click="contact()" class="card-footer-item"
-        >Envoyer un message au coach</a
-      >
+      <router-link
+        class="card-footer-item"
+        :to="{
+          name: 'Commentaire',
+          params: {
+            idExercice: exercice.id,
+            exercice: exercice,
+          },
+        }"
+        >Commenter
+      </router-link>
     </footer>
   </div>
 </template>
 
 <script>
+import { setFormatDate } from "../services/dateService.js";
 export default {
   data() {
     return {
@@ -56,18 +68,17 @@ export default {
   },
   created() {
     this.detailsExercice = JSON.parse(this.exercice);
-    console.log(this.detailsExercice.necessaryTools);
+    console.log(this.detailsExercice);
   },
 
   methods: {
     start() {
-      console.log("Je commence l'exo");
+      const dateDebutReel = setFormatDate(new Date());
+      console.log("Je commence l'exo", dateDebutReel);
     },
     end() {
-      console.log("Je termine l'exo");
-    },
-    contact() {
-      console.log("Je contacte le coach");
+      const dateFinReel = setFormatDate(new Date());
+      console.log("Je termine l'exo", dateFinReel);
     },
   },
 };

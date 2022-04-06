@@ -4,6 +4,7 @@ import WIP from "../components/WIP.vue";
 import ModuleListPage from "../routes/ModuleListPage.vue";
 import ModulePage from "../routes/ModulePage.vue";
 import ExercicePage from "../routes/ExercicePage.vue";
+import CommentPage from "../routes/CommentPage.vue";
 
 const routes = [
   {
@@ -37,6 +38,12 @@ const routes = [
     path: "/contact",
     name: "Contact",
     component: WIP,
+  },
+  {
+    path: "/commentaire/:id",
+    name: "Commentaire",
+    props: true,
+    component: CommentPage,
   },
 ];
 
