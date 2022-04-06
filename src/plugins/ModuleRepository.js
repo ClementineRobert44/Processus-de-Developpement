@@ -1,5 +1,12 @@
+function init(options) {
+    console.log("Installing ModuleRepository with options : ");
+    console.log(options);
+    console.log("----------");
+}
+
 export default {
-  install: (app) => {
+  install: (app, options) => {
+      init(options);
     app.config.globalProperties.$moduleRepository = {
       /** Retourne un exercice par son id */
       getModule: (idModule) => {
@@ -16,8 +23,7 @@ export default {
         )[id];
       },
 
-      getModulesStagiaire: (idStagiaire) => {
-        console.log(idStagiaire);
+      getModulesStagiaire: () => {
         var modules = [
           {
             id: "0",

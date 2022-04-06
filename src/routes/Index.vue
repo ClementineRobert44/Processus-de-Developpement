@@ -1,6 +1,13 @@
 <template>
     <div>
-        <button @click="this.$sheetsApi.getSpreadsheet('1QfwDg_7Zjp5tmRTb2QKZJxAaNcQs02icgImVZBj-Vrs')">Test Google Sheets</button>
+        <div v-if="this.isSpreadsheetSet">
+            Fiche enregistrée
+            <button @click="this.test(this.$exerciceRepository.getExercice(1))">Test ExerciceRepository</button>
+            <!-- TODO : Afficher quelque chose (exos en cours ?) -->
+        </div>
+        <div v-else>            
+            Saisir fiche : <input ref="inputSheet"/><button @click="this.saveSpreadsheet()">Ok</button>
+        </div>        
     </div>
 </template>
 
@@ -8,6 +15,22 @@
 export default {
     name: "Index",
     components: {
+    },
+
+    methods : {
+        saveSpreadsheet() {
+            this.$sheetsApi.setSpreadsheetId(this.$refs.inputSheet.value);
+        },
+
+        test(a) {
+            console.log(a);
+        }
+    },
+
+    computed: {
+        isSpreadsheetSet() {
+            return this.$sheetsApi.getSpreadsheetId();
+        }
     }
 }
 </script>
