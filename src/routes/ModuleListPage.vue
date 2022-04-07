@@ -36,7 +36,6 @@ export default {
     },
 
     async mounted() {
-        console.log(await this.$moduleRepository.getModules());
         this.modules = await this.$moduleRepository.getModules();
     }
 };

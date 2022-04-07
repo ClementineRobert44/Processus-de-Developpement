@@ -10,6 +10,7 @@ import i18n from './plugins/i18n.js'
 import SheetsAPI from './plugins/SheetsAPI.js'
 import exerciceRepository from './plugins/ExerciceRepository.js'
 import moduleRepository from './plugins/ModuleRepository.js'
+import SheetsStructure from './plugins/SheetsStructure.js'
 
 const app = createApp(App);
 
@@ -21,9 +22,12 @@ app.use(
     scope: `profile https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/spreadsheets.readonly`,
     prompt: 'consent',
     fetch_basic_profile: false});
+
 app.use(router);
 app.use(i18n);
+
 app.use(SheetsAPI);
+app.use(SheetsStructure);
 app.use(exerciceRepository, Configuration.APIKey);
 app.use(moduleRepository, Configuration.APIKey);
 

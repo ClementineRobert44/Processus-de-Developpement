@@ -58,7 +58,7 @@ export default {
                 return sheet;
             },
 
-            updateCell(cellId, value) {                
+            async updateCell(cellId, value) {                
                 var sheetId = this.getSpreadsheetId();
                 
                 var accessToken =  sessionStorage.getItem("access_token");
@@ -67,7 +67,7 @@ export default {
                 if(!accessToken) return null;
                 var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${cellId}?key=AIzaSyBER13Jf30swj6FSNcvPh79PGJJP4v0xvg`;
                 
-                fetch(url, {
+                await fetch(url, {
                     method: "PUT",
                     headers: {                        
                         "Authorization" : `Bearer ${sessionStorage.getItem("access_token")}`,
