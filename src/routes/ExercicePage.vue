@@ -2,7 +2,7 @@
   <div class="card">
     <header class="card-header">
       <p class="card-header-title">
-        {{ parseInt(detailsExercice.id) + 1 }}. {{ detailsExercice.title }}
+        {{ parseInt(detailsExercice.Id) + 1 }}. {{ detailsExercice.Titre }}
       </p>
       <button class="card-header-icon" aria-label="more options">
         <span class="icon">
@@ -12,16 +12,16 @@
     </header>
     <div class="card-content">
       <div class="content">
-        {{ detailsExercice.description }}
+        {{ detailsExercice.Description }}
 
         <br />
         <p>
-          {{ detailsExercice.dateDebutPrev }} -
-          {{ detailsExercice.dateFinPrev }}
+          {{ detailsExercice.DateDebutPrev }} -
+          {{ detailsExercice.DateFinPrev }}
         </p>
       </div>
 
-      <div class="content">Durée : {{ detailsExercice.duree }}</div>
+      <div class="content">Durée : {{ detailsExercice.Duree }}</div>
 
       <h2>Outils à utiliser</h2>
 
@@ -58,17 +58,11 @@
 <script>
 import { setFormatDate } from "../services/dateService.js";
 export default {
-  data() {
-    return {
-      detailsExercice: {},
-    };
-  },
   props: {
     exercice: String,
   },
   created() {
     this.detailsExercice = JSON.parse(this.exercice);
-    console.log(this.detailsExercice);
   },
 
   methods: {

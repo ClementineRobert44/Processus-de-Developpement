@@ -3,8 +3,8 @@
     :to="{
       name: 'Exercice',
       params: {
-        idE: exercice.id,
-        exercice: exercice,
+        idE: exercice.Id,
+        exercice: JSON.stringify(exercice),
       },
     }"
   >
@@ -13,20 +13,20 @@
         <div class="media">
           <div class="media-content">
             <p class="title is-4">
-              <span class="numberExercice">{{ this.exercice.id }}.</span>
-              {{ this.exercice.titre }}
+              <span class="numberExercice">{{ this.exercice.Id }}.</span>
+              {{ this.exercice.Titre }}
             </p>
           </div>
         </div>
         <div class="content">
-          {{ this.exercice.description }}
+          {{ this.exercice.Description }}
         </div>
       </div>
       <div
         :class="{
-          'avancement isNotStart': this.exercice.etat == 0,
-          'avancement isInProgress': this.exercice.etat == 1,
-          'avancement isFinish': this.exercice.etat == 2,
+          'avancement isNotStart': this.exercice.etat == '0',
+          'avancement isInProgress': this.exercice.etat == '1',
+          'avancement isFinish': this.exercice.etat == '2',
         }"
       >
         t
@@ -37,15 +37,9 @@
 
 <script>
 export default {
-  data() {},
-
   props: {
-    exercice: Object,
+    exercice: [],
   },
-
-  created() {
-      console.log(this.exercice);
-  }
 };
 </script>
 
