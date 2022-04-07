@@ -38,8 +38,8 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a v-on:click="start()" class="card-footer-item">Commencer</a>
-      <a v-on:click="end()" class="card-footer-item">Terminer</a>
+      <a v-if="this.detailsExercice.Etat == '0'" v-on:click="start()" class="card-footer-item">Commencer</a>
+      <a v-if="this.detailsExercice.Etat == '1'" v-on:click="end()" class="card-footer-item">Terminer</a>
       <router-link
         class="card-footer-item"
         :to="{
@@ -63,15 +63,24 @@ export default {
   },
   created() {
     this.detailsExercice = JSON.parse(this.exercice);
+    console.log(this.detailsExercice);
+  },
+
+  data() {
+      return {
+        detailsExercice: {}
+      }
   },
 
   methods: {
     start() {
       const dateDebutReel = setFormatDate(new Date());
+      this.$exerciceRepository.updateEtat(this.detailsExercice.Id, 1);
       console.log("Je commence l'exo", dateDebutReel);
     },
     end() {
       const dateFinReel = setFormatDate(new Date());
+      this.$exerciceRepository.updateEtat(this.detailsExercice.Id, 2);
       console.log("Je termine l'exo", dateFinReel);
     },
   },

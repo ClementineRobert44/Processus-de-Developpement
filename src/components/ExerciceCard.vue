@@ -24,12 +24,11 @@
       </div>
       <div
         :class="{
-          'avancement isNotStart': this.exercice.etat == '0',
-          'avancement isInProgress': this.exercice.etat == '1',
-          'avancement isFinish': this.exercice.etat == '2',
+          'avancement isNotStart': this.exercice.Etat == '0',
+          'avancement isInProgress': this.exercice.Etat == '1',
+          'avancement isFinish': this.exercice.Etat == '2',
         }"
       >
-        t
       </div>
     </div>
   </router-link>
@@ -51,6 +50,7 @@ export default {
 .avancement {
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
+  height:1em;
 }
 
 .isNotStart {

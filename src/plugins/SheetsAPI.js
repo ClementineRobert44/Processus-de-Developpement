@@ -65,20 +65,26 @@ export default {
 
                 console.log("token : " + accessToken);
                 if(!accessToken) return null;
-                var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${cellId}?key=AIzaSyBER13Jf30swj6FSNcvPh79PGJJP4v0xvg`;
                 
+                var valueRange = {
+                    "range": cellId,
+                    "values": [
+                      { 'values': value }
+                    ]
+                };
+
+                var valueInputOption = 'RAW';
+                var key = 'AIzaSyBER13Jf30swj6FSNcvPh79PGJJP4v0xvg';
+
+                var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${cellId}?valueInputOption=${valueInputOption}&key=${key}`;
+
                 await fetch(url, {
                     method: "PUT",
                     headers: {                        
                         "Authorization" : `Bearer ${sessionStorage.getItem("access_token")}`,
                     },              
                     mode: "cors",
-                    body: {
-                        valueInputOption : {
-                            RAW: value,
-                            USER_ENTERED: true
-                        }
-                    }
+                    body: JSON.stringify(valueRange)
                 }).then((e) => console.log(e));
             },
 

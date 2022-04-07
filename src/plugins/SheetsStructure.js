@@ -1,5 +1,5 @@
 export default {
-    install : (options) => {
+    install : (app) => {
         app.config.globalProperties.$sheetsStructure = {
             structure : {
                 sheets: {
