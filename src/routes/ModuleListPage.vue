@@ -4,22 +4,22 @@
 
     <div
       class="columns is-centered containerModule"
-      v-for="m in this.$moduleRepository.getModulesStagiaire(0)"
+      v-for="m in this.modules"
       v-bind:key="m.id"
     >
       <div class="columns column is-three-quarters">
         <router-link
           :to="{ name: 'Module', params: { id: m.id } }"
           class="column is-10 moduleBox"
-          >{{ m.title }}
+          >{{ m.titre }}
 
           <div>Durée : 100 heures</div>
         </router-link>
         <div
           :class="{
-            'column notStart': m.advancement == 0,
-            'column inProgress': m.advancement == 1,
-            'column finish': m.advancement == 2,
+            'column notStart': m.avancement == 0,
+            'column inProgress': m.avancement == 1,
+            'column finish': m.avancement == 2,
           }"
         ></div>
       </div>
@@ -28,7 +28,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data () {
+        return {
+            modules : []
+        }
+    },
+
+    async mounted() {
+        console.log(await this.$moduleRepository.getModules());
+        this.modules = await this.$moduleRepository.getModules();
+    }
+};
 </script>
 
 <style>

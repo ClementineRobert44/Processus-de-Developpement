@@ -1,8 +1,8 @@
-function init(plugin, options) {
+async function init(plugin, options) {
     console.log("Installing SheetsApi with options : ");
     console.log(options);
     if(plugin.getSpreadsheetId())
-        plugin.loadSpreadsheet();
+        await plugin.loadSpreadsheet();
     console.log("----------");
   }
 
@@ -14,39 +14,47 @@ export default {
 
             /* Chargement de la feuille en mémoire */
             loadSpreadsheet() {
-                if(this.currentSheet) return;
-
-                var sheetId = this.getSpreadsheetId();
-                if(sheetId)
-                {
-                    var accessToken =  sessionStorage.getItem("access_token");
-                    console.log("token : " + accessToken);
-                    if(!accessToken) return null;
-                    var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?includeGridData=true&key=AIzaSyBER13Jf30swj6FSNcvPh79PGJJP4v0xvg`;
+                return new Promise((resolve, reject) => {
+                    if(this.currentSheet) resolve();
                     
-                    fetch(url, {
+                    var sheetId = this.getSpreadsheetId();
+                    if(sheetId)
+                    {
+                        var accessToken =  sessionStorage.getItem("access_token");
+                        console.log("token : " + accessToken);
+                        if(!accessToken) return null;
+                        var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?includeGridData=true&key=AIzaSyBER13Jf30swj6FSNcvPh79PGJJP4v0xvg`;
+                        
+                        return fetch(url, {
                         method: "GET",
                         headers: {                        
                             "Authorization" : `Bearer ${sessionStorage.getItem("access_token")}`,
                         },                
                         mode: "cors"
-                    }).then((e) => e.blob()).then(e => e.text()).then(e => { this.currentSheet = JSON.parse(e); });
-                }
+                        })
+                        .then((e) => e.blob())
+                        .then(e => e.text())
+                        .then(e => { this.currentSheet = JSON.parse(e); resolve(); })
+                        .catch(ex => reject(ex));                        
+                    }
+                });
             },
 
 
             /* Opérations sur la feuille */
-            getSheetWithName(name) {
-                if(!this.currentSheet) return null;
+            async getSheetWithName(name) {
+                if(!this.currentSheet) await this.loadSpreadsheet();
                 
                 var sheet = null;
                 this.currentSheet.sheets.forEach(e => {
                     if(e.properties.title == name)
                     sheet = e;
                 });
-
+                
                 if(!sheet)
                     console.log(`Sheet named ${name} not found.`);
+                else
+                    console.log(`Sheet named ${name} found.`);
                 return sheet;
             },
 
@@ -76,9 +84,9 @@ export default {
 
 
             /* Stockage de l'id */
-            setSpreadsheetId(id) {
+            async setSpreadsheetId(id) {
                 localStorage.setItem("spreadsheetId", id);
-                this.loadSpreadsheet();
+                await this.loadSpreadsheet();
                 console.log(`spreadsheetId set to ${id}`);
             },
 

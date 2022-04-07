@@ -1,5 +1,9 @@
 <template>
-  <ModuleCard :module="this.$moduleRepository.getModuleById(id)" />
+  <ModuleCard
+    :id="this.module.id"
+    :titre="this.module.titre"
+    :description="this.module.description"
+    :image="this.module.image" />
 </template>
 
 <script>
@@ -11,6 +15,16 @@ export default {
   props: {
     id: String,
   },
+
+  data () {
+      return {
+          module : {}
+      }
+  },
+  
+    async mounted() {
+        this.module = await this.$moduleRepository.getModule(this.id);
+    }
 };
 </script>
 
