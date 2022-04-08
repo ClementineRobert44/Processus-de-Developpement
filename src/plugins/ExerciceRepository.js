@@ -98,6 +98,19 @@ export default {
             app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.DateFinReel;
         }
 
+        if (!date) {
+          date = "";
+          if (newEtat == 1) {
+            cellCol =
+              app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col
+                .DateFinReel;
+          } else if (newEtat == 0) {
+            cellCol =
+              app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col
+                .DateDebutReel;
+          }
+        }
+
         cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
         await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, date);
       },
