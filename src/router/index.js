@@ -1,10 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Index from "../routes/Index.vue";
 import WIP from "../components/WIP.vue";
-import ModuleListPage from "../routes/ModuleListPage.vue";
+import CommentPage from "../routes/CommentPage.vue";
+
+import ProgramPage from "../routes/ProgramPage.vue"
 import ModulePage from "../routes/ModulePage.vue";
 import ExercicePage from "../routes/ExercicePage.vue";
-import CommentPage from "../routes/CommentPage.vue";
 
 const routes = [
   {
@@ -15,19 +16,19 @@ const routes = [
   {
     path: "/modules",
     name: "Modules",
-    component: ModuleListPage,
+    component: ProgramPage
   },
   {
     path: "/modules/:id",
     name: "Module",
     props: true,
-    component: ModulePage,
+    component: ModulePage
   },
   {
     path: "/modules/:id/exercice/:idE",
     name: "Exercice",
     props: true,
-    component: ExercicePage,
+    component: ExercicePage
   },
   {
     path: "/achievements",

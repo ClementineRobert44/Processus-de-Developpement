@@ -1,30 +1,17 @@
 <template>
-  <ModuleCard
-    :id="this.module.id"
-    :titre="this.module.titre"
-    :description="this.module.description"
-    :image="this.module.image" />
+  <ModuleDetailCard
+    :idModule="this.$route.params.id"/>
 </template>
 
 <script>
-import ModuleCard from "../components/ModuleCard.vue";
+import ModuleDetailCard from "../components/Program/ModuleDetailCard.vue";
 export default {
   components: {
-    ModuleCard,
+    ModuleDetailCard,
   },
   props: {
-    id: String,
+    idModule: String,
   },
-
-  data () {
-      return {
-          module : {}
-      }
-  },
-  
-    async mounted() {
-        this.module = await this.$moduleRepository.getModule(this.id);
-    }
 };
 </script>
 

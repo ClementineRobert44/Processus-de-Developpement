@@ -1,29 +1,19 @@
 <template>
-  <div>
-    <h1 class="title is-1">{{ $t("titles.modules") }}</h1>
+  <div v-if="this.module" class="columns column is-three-quarters">
+    <router-link
+      :to="{ name: 'Module', params: { id: this.module.Id } }"
+      class="column is-10 moduleBox"
+      >{{ this.module.Titre }}
 
+      <div>Nombre d'exercices: {{ getNbExercices(this.module.Id) }}</div>
+    </router-link>
     <div
-      class="columns is-centered containerModule"
-      v-for="m in this.modules"
-      v-bind:key="m.id"
-    >
-      <div class="columns column is-three-quarters">
-        <router-link
-          :to="{ name: 'Module', params: { id: m.id } }"
-          class="column is-10 moduleBox"
-          >{{ m.titre }}
-
-          <div>Nombre d'exercices: {{ getNbExercices(m.id) }}</div>
-        </router-link>
-        <div
-          :class="{
-            'column notStart': m.avancement == 0,
-            'column inProgress': m.avancement == 1,
-            'column finish': m.avancement == 2,
-          }"
-        ></div>
-      </div>
-    </div>
+      :class="{
+        'column notStart': this.module.Avancement == 0,
+        'column inProgress': this.module.Avancement == 1,
+        'column finish': this.module.Avancement == 2,
+      }"
+    ></div>
   </div>
 </template>
 
@@ -31,13 +21,17 @@
 export default {
   data() {
     return {
-      modules: [],
+      module: null,
       nbExercices: Number,
     };
   },
 
+  props: {
+    idModule: String,
+  },
+
   async mounted() {
-    this.modules = await this.$moduleRepository.getModules();
+    this.module = await this.$moduleRepository.getModule(this.idModule);
   },
 
   methods: {

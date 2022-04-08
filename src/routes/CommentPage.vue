@@ -43,21 +43,17 @@ export default {
       comment: "",
     };
   },
-  props: {
-    exercice: String,
-  },
+
   methods: {
     async sendComment(e) {
-      this.detailsExercice = JSON.parse(this.exercice);
-
       await this.$exerciceRepository.addCommentaire(
         this.comment,
-        this.detailsExercice.Id
+        this.$route.params.id
       );
 
       await this.$exerciceRepository.addTypeCommentaire(
         this.selectedType,
-        this.detailsExercice.Id
+        this.$route.params.id
       );
 
       e.preventDefault();
