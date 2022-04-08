@@ -3,8 +3,7 @@
     :to="{
       name: 'Exercice',
       params: {
-        idE: exercice.Id,
-        exercice: JSON.stringify(exercice),
+        idE: exercice.Id
       },
     }"
   >

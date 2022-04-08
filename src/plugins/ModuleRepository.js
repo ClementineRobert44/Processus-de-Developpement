@@ -54,16 +54,13 @@ export default {
 
           // Calculer l'avancement
           app.config.globalProperties.$exerciceRepository
-            .getExercicesModule(ret.id)
+            .getExercicesModule(ret.Id)
             .then((e) => {
               var sum = 0;
-              e.map((ex) => {
-                sum += parseInt(ex.Etat);
-              });
-
-              if (sum == 0) ret.avancement = 0;
-              else if (sum == e.length * 2) ret.avancement = 2;
-              else ret.avancement = 1;
+              e.map((ex) => (sum += parseInt(ex.Etat)));
+              if (sum == 0) ret.Avancement = 0;
+              else if (sum == e.length * 2) ret.Avancement = 2;
+              else ret.Avancement = 1;
             });
         });
 

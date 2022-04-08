@@ -13,9 +13,10 @@ export default {
             currentSheet : null,
 
             /* Chargement de la feuille en mémoire */
-            loadSpreadsheet() {
+            loadSpreadsheet(force) {
                 return new Promise((resolve, reject) => {
-                    if(this.currentSheet) resolve();
+                    if(!force)
+                        if(this.currentSheet) resolve();
                     
                     var sheetId = this.getSpreadsheetId();
                     if(sheetId)
@@ -85,7 +86,7 @@ export default {
                     },              
                     mode: "cors",
                     body: JSON.stringify(valueRange)
-                }).then((e) => console.log(e));
+                }).then((e) => console.log(e)).then(this.loadSpreadsheet(true));
             },
 
 
