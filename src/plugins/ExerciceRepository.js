@@ -1,144 +1,169 @@
 function init(plugin, options) {
-    console.log("Installing ExerciceRepository with options : ");
-    console.log(options);
-    console.log("----------");
+  console.log("Installing ExerciceRepository with options : ");
+  console.log(options);
+  console.log("----------");
 }
 
 export default {
-    install: (app, options) => {
-        app.config.globalProperties.$exerciceRepository = {
-            /** Retourne un Object représentant un exercice par son id */
-            async getExercice(idExercice) {
-                var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
+  install: (app, options) => {
+    app.config.globalProperties.$exerciceRepository = {
+      baseURL: options.baseURL,
 
-                var fieldsRow = exerciceSheet.data[0].rowData[0];
-                var exerciceRow = await this.exerciceExists(idExercice);
-                console.log(exerciceRow);
+      /** Retourne un Object représentant un exercice par son id */
+      async getExercice(idExercice) {
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
+          "Exercices"
+        ); // Dans le template, la feuille 5 est la feuille "Exercices"
 
-                if (exerciceRow) {
-                    return this.createFromRow(exerciceRow, fieldsRow);
-                } else {
-                    console.log(`Exercice with id ${idExercice} not found.`);
-                    return null;
-                }
-            },
+        var fieldsRow = exerciceSheet.data[0].rowData[0];
+        var exerciceRow = await this.exerciceExists(idExercice);
+        console.log(exerciceRow);
 
-            /** Retourne les exercices d'un stagiaire */
-            async getExercices() {
-                var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
+        if (exerciceRow) {
+          return this.createFromRow(exerciceRow, fieldsRow);
+        } else {
+          console.log(`Exercice with id ${idExercice} not found.`);
+          return null;
+        }
+      },
 
-                var fieldsRow = exerciceSheet.data[0].rowData[0];
-                var ret = [];
-                exerciceSheet.data[0].rowData.map((e) => ret.push(this.createFromRow(e, fieldsRow)));
-                return ret;
-            },
+      /** Retourne les exercices d'un stagiaire */
+      async getExercices() {
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
+          "Exercices"
+        ); // Dans le template, la feuille 5 est la feuille "Exercices"
 
-            /* Retourne les exercices d'un module */
-            async getExercicesModule(idModule) {
-                var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
+        var fieldsRow = exerciceSheet.data[0].rowData[0];
+        var ret = [];
+        exerciceSheet.data[0].rowData.map((e) => ret.push(this.createFromRow(e, fieldsRow)));
+        return ret;
+      },
 
-                var fieldsRow = exerciceSheet.data[0].rowData[0];
-                var ret = [];
-                exerciceSheet.data[0].rowData.filter((e) => e.values[1].formattedValue == idModule).map((e) => ret.push(this.createFromRow(e, fieldsRow)));
-                return ret;
-            },
+      /* Retourne les exercices d'un module */
+      async getExercicesModule(idModule) {
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
+          "Exercices"
+        ); // Dans le template, la feuille 5 est la feuille "Exercices"
 
-            /**
-             * Retourne un objet de type SheetRow si un exercice correspond à l'id passé.
-             * Retourne NULL sinon.
-             */
-            async exerciceExists(idExercice) {
-                var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
+        var fieldsRow = exerciceSheet.data[0].rowData[0];
+        var ret = [];
+        exerciceSheet.data[0].rowData
+          .filter((e) => e.values[1].formattedValue == idModule)
+          .map((e) => ret.push(this.createFromRow(e, fieldsRow)));
+        return ret;
+      },
 
-                return exerciceSheet.data[0].rowData.find((e) => e.values[0].formattedValue == idExercice);
-            },
+      /**
+       * Retourne un objet de type SheetRow si un exercice correspond à l'id passé.
+       * Retourne NULL sinon.
+       */
+      async exerciceExists(idExercice) {
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
+          "Exercices"
+        );
 
-            /* Change l'état d'un exercice */
-            async updateEtat(idExercice, newEtat, date) {
-                var sheetName = "Exercices";
-                var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
-                var cellCol = app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.Etat;
-                var cellRow = null;
-                var index = 1;
+        return exerciceSheet.data[0].rowData.find((e) => e.values[0].formattedValue == idExercice);
+      },
 
-                while (!cellRow && exerciceSheet.data[0].rowData.length > index) {
-                    var row = exerciceSheet.data[0].rowData[index];
+      /* Change l'état d'un exercice */
+      async updateEtat(idExercice, newEtat, date) {
+        var sheetName = "Exercices";
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
+          "Exercices"
+        );
+        var cellCol =
+          app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.Etat;
+        var cellRow = null;
+        var index = 1;
 
-                    if (row.values[0].formattedValue == idExercice) cellRow = index + 1;
-                    // + 1 car les exercices commencent à la ligne 2 dans le Sheets
-                    else index++;
-                }
+        while (!cellRow && exerciceSheet.data[0].rowData.length > index) {
+          var row = exerciceSheet.data[0].rowData[index];
 
-                if (!cellRow) return;
+          if (row.values[0].formattedValue == idExercice) cellRow = index + 1;
+          // + 1 car les exercices commencent à la ligne 2 dans le Sheets
+          else index++;
+        }
 
-                var cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
-                await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, newEtat);
+        if (!cellRow) return;
 
-                if (newEtat == 1) {
-                    cellCol = app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.DateDebutReel;
-                } else if (newEtat == 2) {
-                    cellCol = app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.DateFinReel;
-                }
+        var cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
+        await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, newEtat);
 
-                cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
-                await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, date);
-            },
+        if (newEtat == 1) {
+          cellCol =
+            app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col
+              .DateDebutReel;
+        } else if (newEtat == 2) {
+          cellCol =
+            app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.DateFinReel;
+        }
 
-            async addCommentaire(comment, idExercice) {
-                var sheetName = "Exercices";
-                var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
-                var cellCol = app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.Commentaire;
-                var cellRow = null;
-                var index = 1;
+        cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
+        await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, date);
+      },
 
-                while (!cellRow && exerciceSheet.data[0].rowData.length > index) {
-                    var row = exerciceSheet.data[0].rowData[index];
+      async addCommentaire(comment, idExercice) {
+        var sheetName = "Exercices";
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
+          "Exercices"
+        );
+        var cellCol =
+          app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.Commentaire;
+        var cellRow = null;
+        var index = 1;
 
-                    if (row.values[0].formattedValue == idExercice) cellRow = index + 1;
-                    // + 1 car les exercices commencent à la ligne 2 dans le Sheets
-                    else index++;
-                }
+        while (!cellRow && exerciceSheet.data[0].rowData.length > index) {
+          var row = exerciceSheet.data[0].rowData[index];
 
-                if (!cellRow) return;
+          if (row.values[0].formattedValue == idExercice) cellRow = index + 1;
+          // + 1 car les exercices commencent à la ligne 2 dans le Sheets
+          else index++;
+        }
 
-                var cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
-                await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, comment);
-            },
+        if (!cellRow) return;
 
-            async addTypeCommentaire(typComment, idExercice) {
-                var sheetName = "Exercices";
-                var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
-                var cellCol = app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.TypeCommentaire;
-                var cellRow = null;
-                var index = 1;
+        var cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
+        await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, comment);
+      },
 
-                while (!cellRow && exerciceSheet.data[0].rowData.length > index) {
-                    var row = exerciceSheet.data[0].rowData[index];
+      async addTypeCommentaire(typComment, idExercice) {
+        var sheetName = "Exercices";
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
+          "Exercices"
+        );
+        var cellCol =
+          app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col
+            .TypeCommentaire;
+        var cellRow = null;
+        var index = 1;
 
-                    if (row.values[0].formattedValue == idExercice) cellRow = index + 1;
-                    // + 1 car les exercices commencent à la ligne 2 dans le Sheets
-                    else index++;
-                }
+        while (!cellRow && exerciceSheet.data[0].rowData.length > index) {
+          var row = exerciceSheet.data[0].rowData[index];
 
-                if (!cellRow) return;
+          if (row.values[0].formattedValue == idExercice) cellRow = index + 1;
+          // + 1 car les exercices commencent à la ligne 2 dans le Sheets
+          else index++;
+        }
 
-                var cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
-                await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, typComment);
-            },
+        if (!cellRow) return;
 
-            /** Retourne un objet JSON à partir d'une row de sheet Google
-             * @param row row de la feuille de calcul à passer pour créer un objet
-             * @param fields champs de la feuille (la première ligne de la feuille)
-             */
-            createFromRow(row, fields) {
-                var ret = {};
-                fields.values.map((e, i) => {
-                    if (row.values[i]) ret[e.formattedValue] = row.values[i].formattedValue;
-                });
-                return ret;
-            },
-        };
+        var cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
+        await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, typComment);
+      },
 
-        init(app.config.globalProperties.$exerciceRepository, options);
-    },
+      /** Retourne un objet JSON à partir d'une row de sheet Google
+       * @param row row de la feuille de calcul à passer pour créer un objet
+       * @param fields champs de la feuille (la première ligne de la feuille)
+       */
+      createFromRow(row, fields) {
+        var ret = {};
+        fields.values.map((e, i) => {
+          if (row.values[i]) ret[e.formattedValue] = row.values[i].formattedValue;
+        });
+        return ret;
+      },
+    };
+
+    init(app.config.globalProperties.$exerciceRepository, options);
+  },
 };

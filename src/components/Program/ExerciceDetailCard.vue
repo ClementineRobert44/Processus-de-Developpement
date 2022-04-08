@@ -25,29 +25,27 @@
 
       <div class="list">
         <ul>
-          <div
-            v-for="tool in exercice.necessaryTools"
-            :key="tool.name"
-            class="list-item"
-          >
+          <div v-for="tool in exercice.necessaryTools" :key="tool.name" class="list-item">
             <li>{{ tool.name }}</li>
           </div>
         </ul>
       </div>
     </div>
     <footer class="card-footer">
-      <a
-        v-if="this.exercice.Etat == '0'"
-        v-on:click="start()"
-        class="card-footer-item"
+      <a v-if="this.exercice.Etat == '0'" v-on:click="start()" class="card-footer-item"
         >Commencer</a
       >
-      <a
-        v-if="this.exercice.Etat == '1'"
-        v-on:click="end()"
-        class="card-footer-item"
-        >Terminer</a
+
+      <a v-if="this.exercice.Etat == '1'" v-on:click="reToDo()" class="card-footer-item"
+        >Je n'ai pas commencé</a
       >
+
+      <a v-if="this.exercice.Etat == '1'" v-on:click="end()" class="card-footer-item">Terminer</a>
+
+      <a v-if="this.exercice.Etat == '2'" v-on:click="reInProgress()" class="card-footer-item"
+        >Je n'ai pas terminé</a
+      >
+
       <router-link
         class="card-footer-item"
         :to="{
@@ -69,7 +67,7 @@ export default {
     idExercice: String,
   },
 
-  async mounted() {
+  async created() {
     this.exercice = await this.$exerciceRepository.getExercice(this.idExercice);
   },
 
@@ -82,13 +80,27 @@ export default {
   methods: {
     start() {
       const dateDebutReel = setFormatDate(new Date());
-      this.$exerciceRepository.updateEtat(this.exercice.Id, 1);
-      console.log("Je commence l'exo", dateDebutReel);
+      this.exercice.Etat = "1";
+      console.log(this.exercice.Etat);
+      this.$exerciceRepository.updateEtat(this.exercice.Id, 1, dateDebutReel);
     },
     end() {
       const dateFinReel = setFormatDate(new Date());
-      this.$exerciceRepository.updateEtat(this.exercice.Id, 2);
-      console.log("Je termine l'exo", dateFinReel);
+      this.exercice.Etat = "2";
+
+      this.$exerciceRepository.updateEtat(this.exercice.Id, 2, dateFinReel);
+    },
+
+    reToDo() {
+      this.exercice.Etat = "0";
+
+      this.$exerciceRepository.updateEtat(this.exercice.Id, 0);
+    },
+
+    reInProgress() {
+      this.exercice.Etat = "1";
+
+      this.$exerciceRepository.updateEtat(this.exercice.Id, 1);
     },
   },
 };
