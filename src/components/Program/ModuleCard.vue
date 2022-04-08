@@ -5,7 +5,7 @@
       class="column is-10 moduleBox"
       >{{ this.module.Titre }}
 
-      <div>Nombre d'exercices: {{ getNbExercices(m.id) }}</div>
+      <div>Nombre d'exercices: {{ getNbExercices(this.module.Id) }}</div>
     </router-link>
     <div
       :class="{
