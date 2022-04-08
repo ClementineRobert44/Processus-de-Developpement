@@ -1,9 +1,7 @@
 <template>
   <div class="card">
     <header class="card-header">
-      <p class="card-header-title">
-        {{ exercice.Id }}. {{ exercice.Titre }}
-      </p>
+      <p class="card-header-title">{{ exercice.Id }}. {{ exercice.Titre }}</p>
       <button class="card-header-icon" aria-label="more options">
         <span class="icon">
           <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -38,15 +36,24 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a v-if="this.exercice.Etat == '0'" v-on:click="start()" class="card-footer-item">Commencer</a>
-      <a v-if="this.exercice.Etat == '1'" v-on:click="end()" class="card-footer-item">Terminer</a>
+      <a
+        v-if="this.exercice.Etat == '0'"
+        v-on:click="start()"
+        class="card-footer-item"
+        >Commencer</a
+      >
+      <a
+        v-if="this.exercice.Etat == '1'"
+        v-on:click="end()"
+        class="card-footer-item"
+        >Terminer</a
+      >
       <router-link
         class="card-footer-item"
         :to="{
           name: 'Commentaire',
           params: {
             idExercice: exercice.id,
-            exercice: exercice,
           },
         }"
         >Commenter
@@ -62,14 +69,14 @@ export default {
     idExercice: String,
   },
 
-    async mounted() {
-        this.exercice = await this.$exerciceRepository.getExercice(this.idExercice);
-    },
+  async mounted() {
+    this.exercice = await this.$exerciceRepository.getExercice(this.idExercice);
+  },
 
   data() {
-      return {
-        exercice: {}
-      }
+    return {
+      exercice: {},
+    };
   },
 
   methods: {
