@@ -85,15 +85,21 @@ export default {
   methods: {
     async start() {
       const dateDebutReel = setFormatDate(new Date());
-      await this.$exerciceRepository.updateEtat(this.detailsExercice.Id, 1);
+      await this.$exerciceRepository.updateEtat(
+        this.detailsExercice.Id,
+        1,
+        dateDebutReel
+      );
       this.detailsExercice.Etat = 1;
-      console.log("Je commence l'exo", dateDebutReel);
     },
     async end() {
-      //const dateFinReel = setFormatDate(new Date());
-      await this.$exerciceRepository.updateEtat(this.detailsExercice.Id, 2);
+      const dateFinReel = setFormatDate(new Date());
+      await this.$exerciceRepository.updateEtat(
+        this.detailsExercice.Id,
+        2,
+        dateFinReel
+      );
       this.detailsExercice.Etat = 2;
-      console.log("DETAIL", this.detailsExercice);
     },
   },
 };
