@@ -13,7 +13,7 @@
           class="column is-10 moduleBox"
           >{{ m.titre }}
 
-          <div>Durée : 100 heures</div>
+          <div>Nombre d'exercices: {{ getNbExercices(m.id) }}</div>
         </router-link>
         <div
           :class="{
@@ -29,15 +29,27 @@
 
 <script>
 export default {
-    data () {
-        return {
-            modules : []
-        }
-    },
+  data() {
+    return {
+      modules: [],
+      nbExercices: Number,
+    };
+  },
 
-    async mounted() {
-        this.modules = await this.$moduleRepository.getModules();
-    }
+  async mounted() {
+    this.modules = await this.$moduleRepository.getModules();
+  },
+
+  methods: {
+    getNbExercices(idModule) {
+      this.$exerciceRepository
+        .getExercicesModule(idModule)
+        .then((exercices) => {
+          this.nbExercices = exercices.length;
+        });
+      return this.nbExercices;
+    },
+  },
 };
 </script>
 

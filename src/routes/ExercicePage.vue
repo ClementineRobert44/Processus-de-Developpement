@@ -38,8 +38,18 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a v-if="this.detailsExercice.Etat == '0'" v-on:click="start()" class="card-footer-item">Commencer</a>
-      <a v-if="this.detailsExercice.Etat == '1'" v-on:click="end()" class="card-footer-item">Terminer</a>
+      <a
+        v-if="this.detailsExercice.Etat == '0'"
+        v-on:click="start()"
+        class="card-footer-item"
+        >Commencer</a
+      >
+      <a
+        v-if="this.detailsExercice.Etat == '1'"
+        v-on:click="end()"
+        class="card-footer-item"
+        >Terminer</a
+      >
       <router-link
         class="card-footer-item"
         :to="{
@@ -67,21 +77,29 @@ export default {
   },
 
   data() {
-      return {
-        detailsExercice: {}
-      }
+    return {
+      detailsExercice: {},
+    };
   },
 
   methods: {
-    start() {
+    async start() {
       const dateDebutReel = setFormatDate(new Date());
-      this.$exerciceRepository.updateEtat(this.detailsExercice.Id, 1);
-      console.log("Je commence l'exo", dateDebutReel);
+      await this.$exerciceRepository.updateEtat(
+        this.detailsExercice.Id,
+        1,
+        dateDebutReel
+      );
+      this.detailsExercice.Etat = 1;
     },
-    end() {
+    async end() {
       const dateFinReel = setFormatDate(new Date());
-      this.$exerciceRepository.updateEtat(this.detailsExercice.Id, 2);
-      console.log("Je termine l'exo", dateFinReel);
+      await this.$exerciceRepository.updateEtat(
+        this.detailsExercice.Id,
+        2,
+        dateFinReel
+      );
+      this.detailsExercice.Etat = 2;
     },
   },
 };
