@@ -1,5 +1,5 @@
 <template>
-  <form @submit="sendComment">
+  <form @submit.prevent="sendComment" action="#">
     <div class="field">
       <label class="label">Type de note</label>
       <div class="control">
@@ -47,9 +47,20 @@ export default {
     exercice: String,
   },
   methods: {
-    sendComment() {
+    async sendComment(e) {
       this.detailsExercice = JSON.parse(this.exercice);
-      console.log(this.selectedType, this.comment, this.detailsExercice.id);
+
+      await this.$exerciceRepository.addCommentaire(
+        this.comment,
+        this.detailsExercice.Id
+      );
+
+      await this.$exerciceRepository.addTypeCommentaire(
+        this.selectedType,
+        this.detailsExercice.Id
+      );
+
+      e.preventDefault();
     },
   },
 };
