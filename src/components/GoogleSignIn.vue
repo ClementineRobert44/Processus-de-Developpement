@@ -1,5 +1,5 @@
 <template>
-	<div>
+    <div>
         <div class="button is-primary" v-on:click="handleClickSignIn">{{ this.isAuthentified ? $t("google.signout") : $t("google.signin") }}</div>
     </div>
 </template>
@@ -8,18 +8,15 @@
 export default {
     data() {
         return {
-            isAuthentified : sessionStorage.getItem('access_token') != null
-        }
+            isAuthentified: sessionStorage.getItem("access_token") != null,
+        };
     },
-    
-	methods: {
-        handleClickSignIn() {
-            if(this.isAuthentified)
-                this.signOut();
-            else
-                this.signIn();
-        },
 
+    methods: {
+        handleClickSignIn() {
+            if (this.isAuthentified) this.signOut();
+            else this.signIn();
+        },
 
         async signIn() {
             try {
@@ -31,9 +28,10 @@ export default {
                 console.log("getAuthResponse", googleUser.getAuthResponse());
 
                 var accessToken = googleUser.getAuthResponse().access_token;
-                sessionStorage.setItem('access_token', accessToken);
+                sessionStorage.setItem("access_token", accessToken);
 
                 this.isAuthentified = true;
+                location.reload();
             } catch (error) {
                 //on fail do something
                 console.error(error);
@@ -43,13 +41,12 @@ export default {
         },
 
         signOut() {
-            sessionStorage.removeItem('access_token');
+            sessionStorage.removeItem("access_token");
             this.isAuthentified = false;
-        }
-    }
-}
+            location.reload();
+        },
+    },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

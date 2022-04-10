@@ -17,6 +17,14 @@ const messages = {
         google: {
             signin: "",
             signout: "",
+            notConnected: "",
+            sheetSet: "",
+        },
+        labels: {
+            change: "",
+            enterSpreadsheet: "",
+            confirm: "",
+            sheetNotFound: "",
         },
     },
     en: {
@@ -33,6 +41,14 @@ const messages = {
         google: {
             signin: "Sign in",
             signout: "Sign out",
+            notConnected: "Please sign in",
+            sheetSet: "You set the sheet to :",
+        },
+        labels: {
+            change: "Change",
+            enterSpreadsheet: "Enter the Google Sheets ID :",
+            confirm: "Confirm",
+            sheetNotFound: "Couldn't find sheet with this ID",
         },
     },
     fr: {
@@ -49,6 +65,14 @@ const messages = {
         google: {
             signin: "Connexion",
             signout: "Déconnexion",
+            notConnected: "Veuillez vous connecter",
+            sheetSet: "Vous avez renseigné la feuille :",
+        },
+        labels: {
+            change: "Changer",
+            enterSpreadsheet: "ID du document Google Sheets :",
+            confirm: "Confirmer",
+            sheetNotFound: "Aucun document avec cet ID n'a été trouvé",
         },
     },
 };
