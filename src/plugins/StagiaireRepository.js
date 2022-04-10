@@ -1,12 +1,16 @@
-function init(app, options) {}
+function init(plugin, options) {
+    console.log("Installing StagiaireRepository with options : ");
+    console.log(options);
+    console.log("----------");
+}
 
 export default {
     install: (app, options) => {
         init(app, options);
         app.config.globalProperties.$stagiaireRepository = {
-            async getstagiaire() {
+            async getStagiaire() {
                 var stagiaireSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(app.config.globalProperties.$sheetsStructure.sheets.stagiaire.name);
-                return createFromRow(stagiaireSheet.data[0].rowData[1], stagiaireSheet.data[0].rowData[0]);
+                return this.createFromRow(stagiaireSheet.data[0].rowData[1], stagiaireSheet.data[0].rowData[0]);
             },
 
             /** Retourne un objet JSON à partir d'une row de sheet Google

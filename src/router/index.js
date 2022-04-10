@@ -5,7 +5,7 @@ import ProgramPage from "../routes/ProgramPage.vue";
 import ModulePage from "../routes/ModulePage.vue";
 import ExercicePage from "../routes/ExercicePage.vue";
 import CommentPage from "../routes/CommentPage.vue";
-import StagiairePage from "../routes/StagiairePage.vue";
+import ContactPage from "../routes/ContactPage.vue";
 
 const routes = [
     {
@@ -38,18 +38,13 @@ const routes = [
     {
         path: "/contact",
         name: "Contact",
-        component: WIP,
+        component: ContactPage,
     },
     {
         path: "/commentaire/:id",
         name: "Commentaire",
         props: true,
         component: CommentPage,
-    },
-    {
-        path: "/stagiaire",
-        name: "Stagiaire",
-        component: StagiairePage,
     },
 ];
 

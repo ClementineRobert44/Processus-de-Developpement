@@ -1,4 +1,8 @@
-function init(app, options) {}
+function init(plugin, options) {
+    console.log("Installing CoachRepository with options : ");
+    console.log(options);
+    console.log("----------");
+}
 
 export default {
     install: (app, options) => {
@@ -6,7 +10,7 @@ export default {
         app.config.globalProperties.$coachRepository = {
             async getCoach() {
                 var coachSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(app.config.globalProperties.$sheetsStructure.sheets.coach.name);
-                return createFromRow(coachSheet.data[0].rowData[1], coachSheet.data[0].rowData[0]);
+                return this.createFromRow(coachSheet.data[0].rowData[1], coachSheet.data[0].rowData[0]);
             },
 
             /** Retourne un objet JSON à partir d'une row de sheet Google
