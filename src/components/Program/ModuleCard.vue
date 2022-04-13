@@ -36,11 +36,9 @@ export default {
 
   methods: {
     getNbExercices(idModule) {
-      this.$exerciceRepository
-        .getExercicesModule(idModule)
-        .then((exercices) => {
-          this.nbExercices = exercices.length;
-        });
+      this.$exerciceRepository.getExercicesModule(idModule).then((exercices) => {
+        this.nbExercices = exercices.length;
+      });
       return this.nbExercices;
     },
   },
