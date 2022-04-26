@@ -25,6 +25,8 @@ const messages = {
             enterSpreadsheet: "",
             confirm: "",
             sheetNotFound: "",
+            inProgress: "",
+            finished: "",
         },
     },
     en: {
@@ -49,6 +51,8 @@ const messages = {
             enterSpreadsheet: "Enter the Google Sheets ID :",
             confirm: "Confirm",
             sheetNotFound: "Couldn't find sheet with this ID",
+            inProgress: "In Progress",
+            finished: "Finished",
         },
     },
     fr: {
@@ -73,6 +77,8 @@ const messages = {
             enterSpreadsheet: "ID du document Google Sheets :",
             confirm: "Confirmer",
             sheetNotFound: "Aucun document avec cet ID n'a été trouvé",
+            inProgress: "En Cours",
+            finished: "Terminé",
         },
     },
 };

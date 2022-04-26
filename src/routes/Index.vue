@@ -23,7 +23,7 @@ export default {
     data() {
         return {
             spreadSheetId: null,
-            error: "",
+            error: false,
         };
     },
     beforeMount() {
@@ -51,8 +51,10 @@ export default {
                 if (result == true) {
                     location.reload();
                 } else {
-                    this.error = "prout";
+                    this.error = true;
                 }
+            } else {
+                this.error = true;
             }
         },
     },

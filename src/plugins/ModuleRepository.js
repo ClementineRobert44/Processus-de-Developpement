@@ -42,12 +42,13 @@ export default {
                     if (row.values[i]) ret[e.formattedValue] = row.values[i].formattedValue;
 
                     // Calculer l'avancement
+                    // L'avancement est le pourcentage d'exercices dont l'état est égal à 2 (Terminé)
                     app.config.globalProperties.$exerciceRepository.getExercicesModule(ret.Id).then((e) => {
                         var sum = 0;
-                        e.map((ex) => (sum += parseInt(ex.Etat)));
-                        if (sum == 0) ret.Avancement = 0;
-                        else if (sum == e.length * 2) ret.Avancement = 2;
-                        else ret.Avancement = 1;
+                        e.map((ex) => {
+                            if (ex.Etat == 2) sum++;
+                        });
+                        ret.Avancement = sum / e.length;
                     });
                 });
 
