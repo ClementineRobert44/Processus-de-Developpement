@@ -24,14 +24,14 @@ export default {
     computed: {
         getListFinishedModules() {
             var modules = this.listModules.filter((e) => {
-                if (e.Avancement == 2) return e;
+                if (e.Avancement == 1) return e;
             });
             return modules;
         },
 
         getListToDoModules() {
             var modules = this.listModules.filter((e) => {
-                if (e.Avancement != 2) return e;
+                if (e.Avancement < 1) return e;
             });
             return modules;
         },
@@ -39,6 +39,7 @@ export default {
 
     async mounted() {
         this.listModules = await this.$moduleRepository.getModules();
+        console.log(this.listModules);
     },
 };
 </script>

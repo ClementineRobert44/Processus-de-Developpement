@@ -57,7 +57,7 @@ export default {
             async updateEtat(idExercice, newEtat, date) {
                 var sheetName = "Exercices";
                 var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
-                var cellCol = app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.Etat;
+                var cellCol = app.config.globalProperties.$sheetsStructure.sheets.exercices.col.Etat;
                 var cellRow = null;
                 var index = 1;
 
@@ -75,9 +75,9 @@ export default {
                 await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, newEtat);
 
                 if (newEtat == 1) {
-                    cellCol = app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.DateDebutReel;
+                    cellCol = app.config.globalProperties.$sheetsStructure.sheets.exercices.col.DateDebutReel;
                 } else if (newEtat == 2) {
-                    cellCol = app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.DateFinReel;
+                    cellCol = app.config.globalProperties.$sheetsStructure.sheets.exercices.col.DateFinReel;
                 }
 
                 cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
@@ -87,7 +87,7 @@ export default {
             async addCommentaire(comment, idExercice) {
                 var sheetName = "Exercices";
                 var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
-                var cellCol = app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.Commentaire;
+                var cellCol = app.config.globalProperties.$sheetsStructure.sheets.exercices.col.Commentaire;
                 var cellRow = null;
                 var index = 1;
 
@@ -108,7 +108,7 @@ export default {
             async addTypeCommentaire(typComment, idExercice) {
                 var sheetName = "Exercices";
                 var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
-                var cellCol = app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.TypeCommentaire;
+                var cellCol = app.config.globalProperties.$sheetsStructure.sheets.exercices.col.TypeCommentaire;
                 var cellRow = null;
                 var index = 1;
 

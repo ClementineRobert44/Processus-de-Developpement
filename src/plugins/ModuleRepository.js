@@ -16,7 +16,7 @@ export default {
                 var moduleRow = moduleSheet.data[0].rowData.find((e) => e.values[0].formattedValue == idModule);
 
                 if (moduleRow) {
-                    return this.createFromRow(moduleRow, fieldsRow);
+                    return await this.createFromRow(moduleRow, fieldsRow);
                 } else {
                     console.log(`Module with id ${idModule} not found.`);
                     return null;
@@ -28,7 +28,11 @@ export default {
 
                 var fieldsRow = moduleSheet.data[0].rowData[0];
                 var ret = [];
-                moduleSheet.data[0].rowData.slice(1, moduleSheet.data[0].rowData.length).map((e) => ret.push(this.createFromRow(e, fieldsRow)));
+                var modules = moduleSheet.data[0].rowData.slice(1, moduleSheet.data[0].rowData.length);
+                await modules.forEach(async (e) => {
+                    var module = await this.createFromRow(e, fieldsRow);
+                    ret.push(module);
+                });
                 return ret;
             },
 
@@ -36,21 +40,19 @@ export default {
              * @param row row de la feuille de calcul à passer pour créer un objet
              * @param fields champs de la feuille (la première ligne de la feuille)
              */
-            createFromRow(row, fields) {
+            async createFromRow(row, fields) {
                 var ret = {};
                 fields.values.map((e, i) => {
                     if (row.values[i]) ret[e.formattedValue] = row.values[i].formattedValue;
-
-                    // Calculer l'avancement
-                    // L'avancement est le pourcentage d'exercices dont l'état est égal à 2 (Terminé)
-                    app.config.globalProperties.$exerciceRepository.getExercicesModule(ret.Id).then((e) => {
-                        var sum = 0;
-                        e.map((ex) => {
-                            if (ex.Etat == 2) sum++;
-                        });
-                        ret.Avancement = sum / e.length;
-                    });
                 });
+                // Calculer l'avancement
+                // L'avancement est le pourcentage d'exercices dont l'état est égal à 2 (Terminé)
+                var exercices = await app.config.globalProperties.$exerciceRepository.getExercicesModule(ret.Id);
+                var sum = 0;
+                exercices.map((ex) => {
+                    if (ex.Etat == 2) sum++;
+                });
+                ret.Avancement = sum / exercices.length;
 
                 return ret;
             },

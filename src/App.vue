@@ -4,7 +4,6 @@
             :titles="[
                 { title: this.$t('titles.home'), href: '/' },
                 { title: this.$t('titles.modules'), href: '/modules' },
-                { title: this.$t('titles.achievements'), href: '/achievements' },
                 { title: this.$t('titles.contact'), href: '/contact' },
             ]"
         />
