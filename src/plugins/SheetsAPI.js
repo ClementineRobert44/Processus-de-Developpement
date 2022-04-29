@@ -9,21 +9,22 @@ export default {
     install: (app, options) => {
         app.config.globalProperties.$sheetsApi = {
             currentSheet: null,
+            key: options,
 
             /* Chargement de la feuille en mémoire */
             async loadSpreadsheet(sheetId, force) {
                 if (!force) if (this.currentSheet) return true;
 
                 if (sheetId) {
-                    var accessToken = sessionStorage.getItem("access_token");
+                    const accessToken = sessionStorage.getItem("access_token");
                     console.log("token : " + accessToken);
                     if (!accessToken) return false;
-                    var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?includeGridData=true&key=AIzaSyBER13Jf30swj6FSNcvPh79PGJJP4v0xvg`;
+                    var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?includeGridData=true&key=${this.key}`;
 
                     return await fetch(url, {
                         method: "GET",
                         headers: {
-                            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+                            Authorization: `Bearer ${accessToken}`,
                         },
                         mode: "cors",
                     })
@@ -76,9 +77,8 @@ export default {
                 };
 
                 var valueInputOption = "RAW";
-                var key = "AIzaSyBER13Jf30swj6FSNcvPh79PGJJP4v0xvg";
 
-                var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${cellId}?valueInputOption=${valueInputOption}&key=${key}`;
+                var url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${cellId}?valueInputOption=${valueInputOption}&key=${this.key}`;
 
                 await fetch(url, {
                     method: "PUT",

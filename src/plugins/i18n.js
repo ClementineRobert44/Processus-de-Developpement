@@ -21,12 +21,19 @@ const messages = {
             sheetSet: "",
         },
         labels: {
+            bricocoach: "BricoCoach & Co & Son Ltd.",
             change: "",
             enterSpreadsheet: "",
             confirm: "",
             sheetNotFound: "",
             inProgress: "",
             finished: "",
+            send: "",
+            comment: "",
+            commentType: "",
+        },
+        sentences: {
+            clientComment: "{name}{module}",
         },
     },
     en: {
@@ -53,6 +60,12 @@ const messages = {
             sheetNotFound: "Couldn't find sheet with this ID",
             inProgress: "In Progress",
             finished: "Finished",
+            send: "Send",
+            comment: "Comment",
+            commentType: "Comment type",
+        },
+        sentences: {
+            clientComment: 'Your student {name} commented on module "{module}" !',
         },
     },
     fr: {
@@ -79,6 +92,12 @@ const messages = {
             sheetNotFound: "Aucun document avec cet ID n'a été trouvé",
             inProgress: "En Cours",
             finished: "Terminé",
+            send: "Envoyer",
+            comment: "Commentaire",
+            commentType: "Type de commentaire",
+        },
+        sentences: {
+            clientComment: 'Votre stagiaire {name} a laissé un commentaire sur le module "{module}" !',
         },
     },
 };
@@ -87,7 +106,7 @@ const savedLocale = localStorage.getItem("locale");
 
 const i18n = createI18n({
     locale: savedLocale ?? "fr",
-    fallbackLocale: "en",
+    fallbackLocale: "xx",
     messages: messages,
 });
 

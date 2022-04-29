@@ -7,6 +7,7 @@
                     <div class="media-content">
                         <p class="title is-4">{{ this.stagiaire.Nom }} {{ this.stagiaire.Prenom }}</p>
                         <p class="subtitle is-6">{{ this.stagiaire.CompteGoogle }}</p>
+                        <button class="button is-primary" v-on:click="this.sendMailTest()">Test mail</button>
                     </div>
                 </div>
             </div>
@@ -24,6 +25,13 @@ export default {
 
     async mounted() {
         this.stagiaire = await this.$stagiaireRepository.getStagiaire();
+    },
+    methods: {
+        async sendMailTest() {
+            const from = (await this.$stagiaireRepository.getStagiaire()).CompteGoogle;
+            const to = (await this.$coachRepository.getCoach()).CompteGoogle;
+            await this.$mailApi.sendMail(from, to, "test", "prout");
+        },
     },
 };
 </script>
