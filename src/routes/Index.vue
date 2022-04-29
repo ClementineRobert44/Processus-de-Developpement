@@ -29,6 +29,7 @@ export default {
     beforeMount() {
         this.spreadSheetId = this.getSpreadsheetId();
     },
+
     methods: {
         getSpreadsheetId() {
             return this.$sheetsApi.getSpreadsheetId();

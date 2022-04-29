@@ -39,7 +39,6 @@ export default {
 
     async mounted() {
         this.listModules = await this.$moduleRepository.getModules();
-        console.log(this.listModules);
     },
 };
 </script>
