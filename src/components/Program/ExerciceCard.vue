@@ -35,7 +35,7 @@
 <script>
 export default {
     props: {
-        idStep: Number,
+        idStep: String,
         exercice: [],
     },
 };
