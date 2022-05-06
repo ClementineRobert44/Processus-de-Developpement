@@ -7,13 +7,9 @@ function init(plugin, options) {
 export default {
   install: (app, options) => {
     app.config.globalProperties.$exerciceRepository = {
-      baseURL: options.baseURL,
-
       /** Retourne un Object représentant un exercice par son id */
       async getExercice(idExercice) {
-        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
-          "Exercices"
-        ); // Dans le template, la feuille 5 est la feuille "Exercices"
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
 
         var fieldsRow = exerciceSheet.data[0].rowData[0];
         var exerciceRow = await this.exerciceExists(idExercice);
@@ -29,9 +25,7 @@ export default {
 
       /** Retourne les exercices d'un stagiaire */
       async getExercices() {
-        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
-          "Exercices"
-        ); // Dans le template, la feuille 5 est la feuille "Exercices"
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
 
         var fieldsRow = exerciceSheet.data[0].rowData[0];
         var ret = [];
@@ -41,15 +35,11 @@ export default {
 
       /* Retourne les exercices d'un module */
       async getExercicesModule(idModule) {
-        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
-          "Exercices"
-        ); // Dans le template, la feuille 5 est la feuille "Exercices"
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices"); // Dans le template, la feuille 5 est la feuille "Exercices"
 
         var fieldsRow = exerciceSheet.data[0].rowData[0];
         var ret = [];
-        exerciceSheet.data[0].rowData
-          .filter((e) => e.values[1].formattedValue == idModule)
-          .map((e) => ret.push(this.createFromRow(e, fieldsRow)));
+        exerciceSheet.data[0].rowData.filter((e) => e.values[1].formattedValue == idModule).map((e) => ret.push(this.createFromRow(e, fieldsRow)));
         return ret;
       },
 
@@ -58,9 +48,7 @@ export default {
        * Retourne NULL sinon.
        */
       async exerciceExists(idExercice) {
-        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
-          "Exercices"
-        );
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
 
         return exerciceSheet.data[0].rowData.find((e) => e.values[0].formattedValue == idExercice);
       },
@@ -68,11 +56,8 @@ export default {
       /* Change l'état d'un exercice */
       async updateEtat(idExercice, newEtat, date) {
         var sheetName = "Exercices";
-        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
-          "Exercices"
-        );
-        var cellCol =
-          app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.Etat;
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
+        var cellCol = app.config.globalProperties.$sheetsStructure.sheets.exercices.col.Etat;
         var cellRow = null;
         var index = 1;
 
@@ -90,25 +75,9 @@ export default {
         await app.config.globalProperties.$sheetsApi.updateCell(cellCoordinates, newEtat);
 
         if (newEtat == 1) {
-          cellCol =
-            app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col
-              .DateDebutReel;
+          cellCol = app.config.globalProperties.$sheetsStructure.sheets.exercices.col.DateDebutReel;
         } else if (newEtat == 2) {
-          cellCol =
-            app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.DateFinReel;
-        }
-
-        if (!date) {
-          date = "";
-          if (newEtat == 1) {
-            cellCol =
-              app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col
-                .DateFinReel;
-          } else if (newEtat == 0) {
-            cellCol =
-              app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col
-                .DateDebutReel;
-          }
+          cellCol = app.config.globalProperties.$sheetsStructure.sheets.exercices.col.DateFinReel;
         }
 
         cellCoordinates = `${sheetName}!${cellCol}${cellRow}`;
@@ -117,11 +86,8 @@ export default {
 
       async addCommentaire(comment, idExercice) {
         var sheetName = "Exercices";
-        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
-          "Exercices"
-        );
-        var cellCol =
-          app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col.Commentaire;
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
+        var cellCol = app.config.globalProperties.$sheetsStructure.sheets.exercices.col.Commentaire;
         var cellRow = null;
         var index = 1;
 
@@ -141,12 +107,8 @@ export default {
 
       async addTypeCommentaire(typComment, idExercice) {
         var sheetName = "Exercices";
-        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName(
-          "Exercices"
-        );
-        var cellCol =
-          app.config.globalProperties.$sheetsStructure.structure.sheets.exercices.col
-            .TypeCommentaire;
+        var exerciceSheet = await app.config.globalProperties.$sheetsApi.getSheetWithName("Exercices");
+        var cellCol = app.config.globalProperties.$sheetsStructure.sheets.exercices.col.TypeCommentaire;
         var cellRow = null;
         var index = 1;
 

@@ -1,8 +1,6 @@
 <template>
-  <div v-if="this.module" class="columns column is-three-quarters">
-    <router-link
-      :to="{ name: 'Module', params: { id: this.module.Id } }"
-      class="column is-10 moduleBox"
+  <div v-if="this.module" class="columns column is-10 is-offset-1">
+    <router-link :to="{ name: 'Module', params: { id: this.module.Id } }" class="column is-10 moduleBox"
       >{{ this.module.Titre }}
 
       <div>Nombre d'exercices: {{ getNbExercices(this.module.Id) }}</div>
@@ -10,10 +8,12 @@
     <div
       :class="{
         'column notStart': this.module.Avancement == 0,
-        'column inProgress': this.module.Avancement == 1,
-        'column finish': this.module.Avancement == 2,
+        'column inProgress': this.module.Avancement > 0 && this.module.Avancement < 1,
+        'column finish': this.module.Avancement == 1,
       }"
-    ></div>
+    >
+      <h3 class="title is-3">{{ Math.round(this.module.Avancement * 100) }}%</h3>
+    </div>
   </div>
 </template>
 

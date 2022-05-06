@@ -9,7 +9,7 @@ export default {
                         Prenom: "B",
                         Site: "C",
                         LogoSite: "D",
-                        GoogleMail: "E",
+                        CompteGoogle: "E",
                         Description: "F",
                     },
                 },

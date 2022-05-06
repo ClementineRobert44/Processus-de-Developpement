@@ -11,7 +11,7 @@
                     </div>
                     <div class="media-content">
                         <p class="title is-4">{{ this.coach.Nom }} {{ this.coach.Prenom }}</p>
-                        <p class="subtitle is-6">{{ this.coach.GoogleMail }}</p>
+                        <p class="subtitle is-6">{{ this.coach.CompteGoogle }}</p>
                     </div>
                 </div>
 

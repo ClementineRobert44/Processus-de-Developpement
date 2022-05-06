@@ -32,19 +32,13 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a v-if="this.exercice.Etat == '0'" v-on:click="start()" class="card-footer-item"
-        >Commencer</a
-      >
+      <a v-if="this.exercice.Etat == '0'" v-on:click="start()" class="card-footer-item">Commencer</a>
 
-      <a v-if="this.exercice.Etat == '1'" v-on:click="reToDo()" class="card-footer-item"
-        >Je n'ai pas commencé</a
-      >
+      <a v-if="this.exercice.Etat == '1'" v-on:click="reToDo()" class="card-footer-item">Je n'ai pas commencé</a>
 
       <a v-if="this.exercice.Etat == '1'" v-on:click="end()" class="card-footer-item">Terminer</a>
 
-      <a v-if="this.exercice.Etat == '2'" v-on:click="reInProgress()" class="card-footer-item"
-        >Je n'ai pas terminé</a
-      >
+      <a v-if="this.exercice.Etat == '2'" v-on:click="reInProgress()" class="card-footer-item">Je n'ai pas terminé</a>
 
       <router-link
         class="card-footer-item"
@@ -71,10 +65,8 @@ export default {
     this.exercice = await this.$exerciceRepository.getExercice(this.idExercice);
   },
 
-  data() {
-    return {
-      exercice: {},
-    };
+  async mounted() {
+    this.exercice = await this.$exerciceRepository.getExercice(this.idExercice);
   },
 
   methods: {

@@ -25,6 +25,13 @@ export default {
     async mounted() {
         this.stagiaire = await this.$stagiaireRepository.getStagiaire();
     },
+    methods: {
+        async sendMailTest() {
+            const from = (await this.$stagiaireRepository.getStagiaire()).CompteGoogle;
+            const to = (await this.$coachRepository.getCoach()).CompteGoogle;
+            await this.$mailApi.sendMail(from, to, "test", "prout");
+        },
+    },
 };
 </script>
 
