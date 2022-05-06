@@ -61,6 +61,12 @@ export default {
     idExercice: String,
   },
 
+  data() {
+    return {
+      exercice: {},
+    };
+  },
+
   async created() {
     this.exercice = await this.$exerciceRepository.getExercice(this.idExercice);
   },
