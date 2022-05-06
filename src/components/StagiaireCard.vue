@@ -7,7 +7,6 @@
                     <div class="media-content">
                         <p class="title is-4">{{ this.stagiaire.Nom }} {{ this.stagiaire.Prenom }}</p>
                         <p class="subtitle is-6">{{ this.stagiaire.CompteGoogle }}</p>
-                        <button class="button is-primary" v-on:click="this.sendMailTest()">Test mail</button>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@
             <div class="card-content">
                 <div class="media">
                     <div class="media-content">
-                        <textarea ref="mailContent" :placeholder="$t('titles.contact')" />
+                        <textarea class="mailContent" ref="mailContent" :placeholder="$t('titles.contact')" />
                         <button class="button is-primary" v-on:click="this.sendMail()">{{ $t("labels.send") }}</button>
                     </div>
                 </div>
@@ -35,4 +35,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.mailContent {
+    min-width: 80%;
+    max-width: 80%;
+    margin-left: 10%;
+    display: block;
+    float: none;
+}
+</style>

@@ -47,4 +47,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 -   WIP : page Work In Progress
 -   CommentPage : page permettant de saisir un commentaire
 
-Feuille test : 1QfwDg_7Zjp5tmRTb2QKZJxAaNcQs02icgImVZBj-Vrs
+Feuille test :
+1QfwDg_7Zjp5tmRTb2QKZJxAaNcQs02icgImVZBj-Vrs
