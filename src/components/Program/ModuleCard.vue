@@ -1,47 +1,47 @@
 <template>
-    <div v-if="this.module" class="columns column is-10 is-offset-1">
-        <router-link :to="{ name: 'Module', params: { id: this.module.Id } }" class="column is-10 moduleBox"
-            >{{ this.module.Titre }}
+  <div v-if="this.module" class="columns column is-10 is-offset-1">
+    <router-link :to="{ name: 'Module', params: { id: this.module.Id } }" class="column is-10 moduleBox"
+      >{{ this.module.Titre }}
 
-            <div>Nombre d'exercices: {{ getNbExercices(this.module.Id) }}</div>
-        </router-link>
-        <div
-            :class="{
-                'column notStart': this.module.Avancement == 0,
-                'column inProgress': this.module.Avancement > 0 && this.module.Avancement < 1,
-                'column finish': this.module.Avancement == 1,
-            }"
-        >
-            <h3 class="title is-3">{{ Math.round(this.module.Avancement * 100) }}%</h3>
-        </div>
+      <div>Nombre d'exercices: {{ getNbExercices(this.module.Id) }}</div>
+    </router-link>
+    <div
+      :class="{
+        'column notStart': this.module.Avancement == 0,
+        'column inProgress': this.module.Avancement > 0 && this.module.Avancement < 1,
+        'column finish': this.module.Avancement == 1,
+      }"
+    >
+      <h3 class="title is-3">{{ Math.round(this.module.Avancement * 100) }}%</h3>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            module: null,
-            nbExercices: Number,
-        };
-    },
+  data() {
+    return {
+      module: null,
+      nbExercices: Number,
+    };
+  },
 
-    props: {
-        idModule: String,
-    },
+  props: {
+    idModule: String,
+  },
 
-    async mounted() {
-        this.module = await this.$moduleRepository.getModule(this.idModule);
-    },
+  async mounted() {
+    this.module = await this.$moduleRepository.getModule(this.idModule);
+  },
 
-    methods: {
-        getNbExercices(idModule) {
-            this.$exerciceRepository.getExercicesModule(idModule).then((exercices) => {
-                this.nbExercices = exercices.length;
-            });
-            return this.nbExercices;
-        },
+  methods: {
+    getNbExercices(idModule) {
+      this.$exerciceRepository.getExercicesModule(idModule).then((exercices) => {
+        this.nbExercices = exercices.length;
+      });
+      return this.nbExercices;
     },
+  },
 };
 </script>
 
@@ -49,37 +49,37 @@ export default {
 .notStart,
 .inProgress,
 .finish {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .notStart {
-    background-color: #d05252;
+  background-color: #d05252;
 }
 
 .inProgress {
-    background-color: #e1a751;
+  background-color: #e1a751;
 }
 
 .finish {
-    background-color: #63d052;
+  background-color: #63d052;
 }
 
 .moduleBox {
-    background-color: white;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .column:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 a {
-    color: black;
+  color: black;
 }
 
 a:hover {
-    color: grey;
+  color: grey;
 }
 </style>
