@@ -13,10 +13,12 @@
                 {{ exercice.Description }}
 
                 <br />
+                <br />
                 <p>
-                    {{ exercice.DateDebutPrev }} -
+                    Date de réalisation prévue : {{ exercice.DateDebutPrev }} -
                     {{ exercice.DateFinPrev }}
                 </p>
+                <p v-if="this.exercice.Etat != '0'">Date de réalisation réelle : {{ exercice.DateDebutReel }} - {{ exercice.Etat == "2" ? exercice.DateFinReel : null }}</p>
             </div>
 
             <div class="content">Durée : {{ exercice.Duree }}</div>
