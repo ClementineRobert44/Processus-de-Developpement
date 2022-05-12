@@ -14,16 +14,17 @@
 
                 <br />
                 <br />
-                <p>
-                    Date de réalisation prévue : {{ exercice.DateDebutPrev }} -
-                    {{ exercice.DateFinPrev }}
-                </p>
-                <p v-if="this.exercice.Etat != '0'">Date de réalisation réelle : {{ exercice.DateDebutReel }} - {{ exercice.Etat == "2" ? exercice.DateFinReel : null }}</p>
+                <p>{{ $t("labels.startTime") }} : {{ exercice.DateDebutPrev }} - {{ $t("labels.endTime") }} : {{ exercice.DateFinPrev }}</p>
+                <p v-if="this.exercice.Etat != '0'">{{ $t("labels.realStartTime") }} {{ exercice.DateDebutReel }} - {{ $t("labels.realEndTime") }} {{ exercice.Etat == "2" ? exercice.DateFinReel : null }}</p>
             </div>
 
-            <div class="content">Durée : {{ exercice.Duree }}</div>
-
-            <h2>Outils à utiliser</h2>
+            <div class="content">{{ $t("labels.duration") }} {{ exercice.Duree }}</div>
+            <div v-if="this.exercice.NecessaryTools">
+                <h2>{{ $t("labels.requiredTools") }} :</h2>
+                <ul>
+                    <li v-for="tool in this.exercice.NecessaryTools.split(', ')" :key="tool">{{ tool }}</li>
+                </ul>
+            </div>
 
             <div class="list">
                 <ul>
@@ -34,13 +35,13 @@
             </div>
         </div>
         <footer class="card-footer">
-            <a v-if="this.exercice.Etat == '0'" v-on:click="start()" class="card-footer-item">Commencer</a>
+            <a v-if="this.exercice.Etat == '0'" v-on:click="start()" class="card-footer-item">{{ $t("labels.start") }}</a>
 
-            <a v-if="this.exercice.Etat == '1'" v-on:click="reToDo()" class="card-footer-item">Je n'ai pas commencé</a>
+            <a v-if="this.exercice.Etat == '1'" v-on:click="reToDo()" class="card-footer-item">{{ $t("labels.unstart") }}</a>
 
-            <a v-if="this.exercice.Etat == '1'" v-on:click="end()" class="card-footer-item">Terminer</a>
+            <a v-if="this.exercice.Etat == '1'" v-on:click="end()" class="card-footer-item">{{ $t("labels.end") }}</a>
 
-            <a v-if="this.exercice.Etat == '2'" v-on:click="reInProgress()" class="card-footer-item">Je n'ai pas terminé</a>
+            <a v-if="this.exercice.Etat == '2'" v-on:click="reInProgress()" class="card-footer-item">{{ $t("labels.unend") }}</a>
 
             <router-link
                 class="card-footer-item"
